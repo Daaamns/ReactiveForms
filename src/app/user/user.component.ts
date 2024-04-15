@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { User } from '../models/types/address';
 
 @Component({
@@ -8,13 +8,20 @@ import { User } from '../models/types/address';
   styleUrl: './user.component.scss',
 })
 export class UserComponent {
-  userName = new FormControl('');
-  email = new FormControl('');
-  password = new FormControl('');
-  street = new FormControl('');
-  zip = new FormControl('');
-  city = new FormControl('');
+  userForm = this.fb.group({
+    userName: [''],
+    credentials: this.fb.group({
+      email: [''],
+      password: [''],
+    }),
+    address: this.fb.group({
+      street: [''],
+      zip: [''],
+      city: [''],
+    }),
+  });
   formValid: boolean = false;
+  constructor(private fb: FormBuilder) {}
 
   user: User = {
     userName: '',
@@ -25,13 +32,7 @@ export class UserComponent {
     city: '',
   };
 
-  changeUsername() {
-    this.formValid = true;
-    this.user.userName = this.userName.value;
-    this.user.email = this.email.getRawValue();
-    this.user.password = this.password.getRawValue();
-    this.user.street = this.street.getRawValue();
-    this.user.zip = this.zip.getRawValue();
-    this.user.city = this.city.getRawValue();
+  onSubmit() {
+    console.log(this.userForm.value);
   }
 }
