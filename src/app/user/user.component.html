@@ -1,0 +1,35 @@
+<div>
+  <label>
+    Username:
+    <input type="text" [formControl]="userName" />
+  </label>
+  <label>
+    Email:
+    <input type="text" [formControl]="email" />
+  </label>
+  <label>
+    Password:
+    <input type="text" [formControl]="password" />
+  </label>
+  <label>
+    Street:
+    <input type="text" [formControl]="street" />
+  </label>
+  <label>
+    Zip:
+    <input type="text" [formControl]="zip" />
+  </label>
+  <label>
+    City:
+    <input type="text" [formControl]="city" />
+  </label>
+  <button (click)="changeUsername()">click</button>
+</div>
+<div *ngIf="formValid">
+  {{ user.userName }}
+  {{ user.email }}
+  {{ user.password }}
+  {{ user.street }}
+  {{ user.zip }}
+  {{ user.city }}
+</div>
