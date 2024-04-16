@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../models/types/address';
 import { passwordValidator } from './user.validator/password-validator';
 import { emailValidator } from './user.validator/email-validator';
+import { checkEqualityValidator } from './user.validator/equality-validator';
 
 @Component({
   selector: 'app-user',
@@ -14,10 +15,20 @@ export class UserComponent {
 
   userForm = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
-    credentials: this.fb.group({
-      email: ['', [Validators.required, emailValidator]],
-      password: ['', [Validators.required, passwordValidator]],
-    }),
+    credentials: this.fb.group(
+      {
+        email: ['', [Validators.required, emailValidator]],
+        password: ['', [Validators.required, passwordValidator]],
+        secondPassword: ['', [Validators.required, passwordValidator]],
+      },
+      {
+        validators: checkEqualityValidator(
+          'password',
+          'secondPassword',
+          'The password confirmation must match your password.'
+        ),
+      }
+    ),
     address: this.fb.group({
       street: [''],
       zip: [''],

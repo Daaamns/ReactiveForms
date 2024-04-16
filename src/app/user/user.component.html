@@ -45,6 +45,30 @@
         </div>
       </label>
       <label>
+        Password confirmation:&nbsp;
+        <input type="text" formControlName="secondPassword" />
+        <div
+          *ngIf="submitted"
+          [hidden]="!userForm.get('credentials')?.errors?.['mismatch']"
+        >
+          {{ userForm.get("credentials")?.errors?.['mismatch']?.rules }}
+        </div>
+        <div
+          *ngIf="
+            submitted &&
+            userForm.get('credentials.secondPassword')?.errors &&
+            !userForm.get('credentials.secondPassword')?.pristine
+          "
+          class="error-msg"
+        >
+          <div
+            [hidden]="!userForm.get('credentials.secondPassword')?.errors?.['required']"
+          >
+            Password is required.
+          </div>
+        </div>
+      </label>
+      <label>
         Email:
         <input type="text" formControlName="email" />
         <div
